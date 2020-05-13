@@ -1,0 +1,20 @@
+import os
+import csv
+
+dir = "C:\\Users\\RoeyLaptop\\Desktop\\Lexical Priming\\all_data\\"
+end_traning = 53
+output_file_name = "output.csv"
+
+files = os.listdir(dir)
+with open((dir+output_file_name), 'w', newline='') as csv_new_file:
+    spamwriter = csv.writer(csv_new_file, delimiter=',')
+    with open (dir+files[0], newline='') as csv_file: # write properties
+        a = list(csv.reader(csv_file, delimiter=','))
+        a[0].append('ID')
+        spamwriter.writerow(a[0])
+    for i, file_name in enumerate(files): # copy all files
+        with open((dir+file_name), newline='') as csvfile:
+            spamreader = list(csv.reader(csvfile, delimiter=','))
+            for row in spamreader[end_traning:]:
+                row.append((i+1))
+                spamwriter.writerow(row)
